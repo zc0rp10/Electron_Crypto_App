@@ -5,13 +5,20 @@
   "repository": "github:zc0rp10/electron_crypto_app",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build:package": "electron-packager . --out=out",
+    "build:snap": "electron-installer-snap --src=out/myappname-linux-x64",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/win/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . electron-tutorial-app --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",
+    "package-linux": "electron-packager . electron-tutorial-app --overwrite --asar --platform=linux --arch=x64 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds"
   },
   "keywords": [],
   "author": "Björn Fällbom",
   "license": "ISC",
   "devDependencies": {
-    "electron": "8.0.1"
+    "electron": "8.0.1",
+    "electron-installer-snap": "^5.0.0",
+    "electron-packager": "^14.2.1"
   },
   "dependencies": {
     "axios": "^0.19.2"
