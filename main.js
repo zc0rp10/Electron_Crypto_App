@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, Menu, shell } = require("electron");
 
 function createWindow() {
   // Create the browser window.
@@ -11,22 +11,49 @@ function createWindow() {
   });
 
   // and load the index.html of the app.
-  win.loadFile("index.html");
+  win.loadFile("./src/index.html");
 
   // Open the DevTools.
   win.webContents.openDevTools();
 
   let menu = Menu.buildFromTemplate([
     {
-      label: "Menu",
+      label: "File",
       submenu: [
         { label: "Adjust Notification Value" },
-        { label: "CoinMarketCap" },
+        {
+          label: "CoinMarketCap",
+          click() {
+            shell.openExternal("https://coinmarketcap.com");
+          }
+        },
+        { type: "separator" },
         {
           label: "Exit",
           accelerator: "CmdOrCtrl+Q",
-          click() {
+          click: () => {
             app.quit();
+          }
+        }
+      ]
+    },
+    {
+      label: "View",
+      submenu: [
+        {
+          label: "Reload",
+          accelerator: "CmdOrCtrl+R",
+          click: (item, focusedWindow) => {
+            if (focusedWindow) {
+              // on reload, start fresh and close any old
+              // open secondary windows
+              if (focusedWindow.id === 1) {
+                BrowserWindow.getAllWindows().forEach(win => {
+                  if (win.id > 1) win.close();
+                });
+              }
+              focusedWindow.reload();
+            }
           }
         }
       ]
