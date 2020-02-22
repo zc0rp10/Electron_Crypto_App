@@ -13,9 +13,7 @@ function createWindow() {
   // and load the index.html of the app.
   win.loadFile("./src/index.html");
 
-  // Open the DevTools.
-  win.webContents.openDevTools();
-
+  //Application Menu
   let menu = Menu.buildFromTemplate([
     {
       label: "File",
@@ -54,6 +52,13 @@ function createWindow() {
               }
               focusedWindow.reload();
             }
+          }
+        },
+        {
+          label: "Dev Tools",
+          accelerator: "F12",
+          click: () => {
+            win.webContents.toggleDevTools();
           }
         }
       ]
