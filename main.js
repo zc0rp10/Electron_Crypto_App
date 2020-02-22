@@ -40,7 +40,7 @@ function createWindow() {
       submenu: [
         {
           label: "Reload",
-          accelerator: "CmdOrCtrl+R",
+          accelerator: "F5",
           click: (item, focusedWindow) => {
             if (focusedWindow) {
               // on reload, start fresh and close any old
@@ -55,7 +55,7 @@ function createWindow() {
           }
         },
         {
-          label: "Dev Tools",
+          label: "Toggle Dev Tools",
           accelerator: "F12",
           click: () => {
             win.webContents.toggleDevTools();
